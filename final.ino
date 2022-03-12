@@ -146,7 +146,7 @@ digitalWrite(pump, LOW);
       particleSensor.nextSample(); //We're finished with this sample so move to next sample
 
       //send samples and calculation result to terminal program through UART
-      Serial.print(F("red="));
+      /*Serial.print(F("red="));
       Serial.print(redBuffer[i], DEC);
       Serial.print(F(", ir="));
       Serial.print(irBuffer[i], DEC);
@@ -156,12 +156,30 @@ digitalWrite(pump, LOW);
 
       Serial.print(F(", HRvalid="));
       Serial.print(validHeartRate, DEC);
-
-      Serial.print(F(", SPO2="));
+*/
+     // Serial.print(F(", SPO2="));
       Serial.print(spo2, DEC);
+      Serial.print("        ");
+      Serial.println(diastol);
+      Serial.print("        ");
+      Serial.println(systol);
+      Serial.print("        ");
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
-      Serial.print(F(", SPO2Valid="));
-      Serial.println(validSPO2, DEC);
+    //  Serial.print(F(", SPO2Valid="));
+      //Serial.println(validSPO2, DEC);
     }
 
     //After gathering 25 new samples recalculate HR and SP02
@@ -213,7 +231,7 @@ void Diastolic()
  void stopp(){
 
 for( int i = 0; i < 10; i++) {
-Serial.println("STOP"); 
+//Serial.println("STOP"); 
 delay(1000);
 digitalWrite(pump, LOW);
 digitalWrite(out, LOW);
