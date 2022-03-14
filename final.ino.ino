@@ -87,11 +87,11 @@ digitalWrite(out, HIGH);
   // Initialize sensor
   if (!particleSensor.begin(Wire, I2C_SPEED_FAST)) //Use default I2C port, 400kHz speed
   {
-    Serial.println(F("MAX30105 was not found. Please check wiring/power."));
+   // Serial.println(F("MAX30105 was not found. Please check wiring/power."));
     while (1);
   }
 
-  Serial.println(F("Attach sensor to finger with rubber band. Press any key to start conversion"));
+  //Serial.println(F("Attach sensor to finger with rubber band. Press any key to start conversion"));
   while (Serial.available() == 0) ; //wait until user presses a key
   Serial.read();
 
@@ -121,7 +121,7 @@ void loop() {
     
   analogWrite(pump,250);
 reading = analogRead(sensor);
-Serial.println(reading);
+//Serial.println(reading);
 
  //va = (reading * 500.0) / 1024.0; 
 //Serial.println(va);
@@ -154,10 +154,10 @@ digitalWrite(pump, LOW);
     irBuffer[i] = particleSensor.getIR();
     particleSensor.nextSample(); //We're finished with this sample so move to next sample
 
-    Serial.print(F("red="));
-    Serial.print(redBuffer[i], DEC);
-    Serial.print(F(", ir="));
-    Serial.println(irBuffer[i], DEC);
+    //Serial.print(F("red="));
+    //Serial.print(redBuffer[i], DEC);
+    //Serial.print(F(", ir="));
+   // Serial.println(irBuffer[i], DEC);
   }
 
   //calculate heart rate and SpO2 after first 100 samples (first 4 seconds of samples)
@@ -194,7 +194,6 @@ digitalWrite(pump, LOW);
       Serial.print(heartRate, DEC);
       Serial.print(F(", HRvalid="));
       Serial.print(validHeartRate, DEC);
-
      // Serial.print(F(", SPO2="));
       Serial.print(spo2, DEC);
       Serial.print("        ");
@@ -266,9 +265,9 @@ digitalWrite(pump, LOW);
 void Systolic(){
 
   for( int i = 0; i < 5; i++) {
-Serial.println(i);
+//Serial.println(i);
 reading = analogRead(sensor);
-Serial.println(reading);
+//Serial.println(reading);
 delay(1000);
 digitalWrite(pump, LOW);
    
@@ -281,12 +280,12 @@ delay(100);
 void Diastolic()
 {
 
-    Serial.print("Diastolic :");
+    //Serial.print("Diastolic :");
     diastol =346 - reading; //- 117;
-    Serial.println(diastol);
-    Serial.print("Systolic:");
+    //Serial.println(diastol);
+    //Serial.print("Systolic:");
     systol = 309 - reading;// - 157;
-    Serial.println(systol);
+    //Serial.println(systol);
     delay(1000);
     digitalWrite(pump, LOW);
 
@@ -312,7 +311,4 @@ digitalWrite(out, LOW);
     stopp();
      delay(10);
 }
-
-
-
 
