@@ -1,7 +1,9 @@
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_ADXL345_U.h>
-Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified();
+
+/* Assign a unique ID to this sensor at the same time */
+Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345);
 const int sensor = A2;
 float tempc;
 float tempf,vout;
@@ -26,8 +28,16 @@ float va;
 
 
 void setup() {
-   Serial.begin(19200);  
+   Serial.begin(19200);
+   if(!accel.begin())
+  {
+    /* There was a problem detecting the ADXL345 ... check your connections */
+    Serial.println("Ooops, no ADXL345 detected ... Check your wiring!");
+    while(1);
+  }
 
+  /* Set the range to whatever is appropriate for your project */
+  accel.setRange(ADXL345_RANGE_16_G);
 
     pinMode(sensor,INPUT);
     pinMode(vcc,OUTPUT);
@@ -54,7 +64,7 @@ void loop() {
    tempc=vout;
    tempf=(vout*1.8)+32;
   /*if(!accel.begin())
-   {
+   { 
       Serial.println("No ADXL345 sensor detected.");
       while(1);
    }*/
@@ -91,8 +101,9 @@ digitalWrite(pump, LOW);
      Systolic();
 }
 
-   sensors_event_t event; 
-   accel.getEvent(&event);
+    sensors_event_t event; 
+  accel.getEvent(&event);
+
    Serial.print(event.acceleration.x); 
    Serial.print("     ");
    Serial.print(event.acceleration.y); 
